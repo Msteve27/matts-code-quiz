@@ -18,10 +18,10 @@ let finalScoreEl = document.getElementById('final-score')
 let submitScoreBtn = document.getElementById('submitScoreBtn')
 let initialsInput = document.getElementById('initialsInput')
 
-let timerIntervalID = null;
+let timerInterval = null;
 
 function startQuiz() {
-	timerIntervalID = setInterval(updateTime, 1000);
+	timerInterval = setInterval(updateTime, 1000);
 	homepageContainerEl.classList.add('hidden')
 	questionsContainerEl.classList.remove("hidden")
 	generateQuestion()
@@ -30,7 +30,7 @@ function startQuiz() {
 startBtn.onclick = startQuiz;
 
 // create an array of questions with multiple choices
-let questionsArray = [
+let possibleQuestionsArray = [
 	{
 		question: 'What is the capital of the US?',
 		answers: ['Chicago, IL', 'Nashville, TN', 'Seattle, WA', 'Washington, DC'],
@@ -48,39 +48,37 @@ let questionsArray = [
 	},
 ]
 
-let currentQuestionIndex = 0
+let liveQuestioni = 0
 
 function generateQuestion() {
-	let currentQuestion = questionsArray[currentQuestionIndex] 
+	let liveQuestion = possibleQuestionsArray[liveQuestioni] 
 
-	questionsListEl.textContent = currentQuestion.question
+	questionsListEl.textContent = liveQuestion.question
 
-	answeraEl.textContent = currentQuestion.answers[0]
-	answerbEl.textContent = currentQuestion.answers[1]
-	answercEl.textContent = currentQuestion.answers[2]
-	answerdEl.textContent = currentQuestion.answers[3]
+	answeraEl.textContent = liveQuestion.answers[0]
+	answerbEl.textContent = liveQuestion.answers[1]
+	answercEl.textContent = liveQuestion.answers[2]
+	answerdEl.textContent = liveQuestion.answers[3]
 
-	answeraEl.onclick = incrementQuestionIndex
-	answerbEl.onclick = incrementQuestionIndex
-	answercEl.onclick = incrementQuestionIndex
-	answerdEl.onclick = incrementQuestionIndex
+	answeraEl.onclick = incrementLiveQuestions
+	answerbEl.onclick = incrementLiveQuestions
+	answercEl.onclick = incrementLiveQuestions
+	answerdEl.onclick = incrementLiveQuestions
 }
 
-// Create a function that increments the currentQuestionIndex by 1 when an answer button is clicked
-function incrementQuestionIndex() {
+// Create a function that increments the liveQuestioni by 1 when an answer button is clicked
+function incrementLiveQuestions() {
 	console.log(this)
-	let buttonElAnswer = this.innerText
-	console.log('buttonElAnswer: ', buttonElAnswer);
-	checkAnswer(buttonElAnswer)
+	let answerBtnEL = this.innerText
+	confirmAnswer(answerBtnEL)
 	
-	currentQuestionIndex++
+	liveQuestioni++
 
-	if (currentQuestionIndex > questionsArray.length - 1) {
-		console.log('All done!')
+	if (liveQuestioni > possibleQuestionsArray.length - 1) {
 		questionsContainerEl.classList.add('hidden')
 		resultsContainerEl.classList.remove('hidden')
 		finalScoreEl.textContent = `Your final score is ${time + 1}!`
-		clearInterval(timerIntervalID)
+		clearInterval(timerInterval)
 		return
 	}
 
@@ -98,19 +96,19 @@ function updateTime() {
 	}
 }
 
-function checkAnswer(answer) {
-	let tooltipText = ''
-	if (answer == questionsArray[currentQuestionIndex].correctAnswer) {
+function confirmAnswer(answer) {
+	let answerStatusText = ''
+	if (answer == possibleQuestionsArray[liveQuestioni].correctAnswer) {
 		console.log('correct')
-		tooltipText = 'Correct!'
+		answerStatusText = 'Correct'
 		answerStatusContainerEl.classList.remove('hidden')
-		answerStatusEl.textContent = tooltipText
+		answerStatusEl.textContent = answerStatusText
 	} else {
 		console.log('wrong')
-		tooltipText = 'Wrong!'
+		answerStatusText = 'Incorrect'
 		time = time - 10
 		answerStatusContainerEl.classList.remove('hidden')
-		answerStatusEl.textContent = tooltipText
+		answerStatusEl.textContent = answerStatusText
 	}
 	setTimeout(() => {
 		answerStatusContainerEl.classList.add('hidden')
