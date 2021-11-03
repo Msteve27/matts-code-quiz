@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+	<title>Matt's Coding Quiz</title>
+</head>
+<body class="m-4">
+	<header class="flex justify-between text-xl ">
+		<div class="text-purple-600">
+			<a href="#">View Highscores</a>
+		</div>
+		<div>
+			<p id="time"></p>
+		</div>
+	</header>
+	<main class="flex justify-center text-center max-w-lg m-auto mt-8 flex-col">
+		<div class="homepage-container">
+			<h1 class="font-bold text-3xl">Matt's Coding Quiz</h1>
+			<p class="mt-5">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by 10 seconds!</p>
+			<button id="startBtn" class="mt-5 bg-purple-600 text-white p-2 rounded-xl">Start Quiz</button>
+		</div>
+		
+		<div class="questions-container flex flex-col items-start hidden">
+			<h1 id="questions-list" class="font-bold text-3xl"></h1>
+			<button id="answera" class="mt-1 bg-purple-600 text-white p-1 rounded"></button>
+			<button id="answerb" class="mt-1 bg-purple-600 text-white p-1 rounded"></button>
+			<button id="answerc" class="mt-1 bg-purple-600 text-white p-1 rounded"></button>
+			<button id="answerd" class="mt-1 bg-purple-600 text-white p-1 rounded"></button>
+			<div id="answerStatus-container" class="mt-5 flex flex-col items-start hidden">
+				<div class="border-t-4 w-64"></div>
+				<p id="answerStatus" class="italic text-gray-500"></p>
+			</div>
+		</div>
+
+		<div class="results-container flex flex-col items-start hidden">
+			<h2 class="font-bold text-2xl">Quiz Complete</h2>
+			<p id="final-score" class="mt-3"></p>
+			<div class="flex mt-3">
+				<span>Enter initials</span>
+				<input id="initialsInput" class="border-2 border-purple-600 rounded mx-2" type="text">
+				<button id="submitScoreBtn" class="bg-purple-600 text-white p-1 rounded">Submit</button>
+			</div>
+		</div>
+	</main>
+	<script src="./assets/js/script.js"></script>
+</body>
+</html>
