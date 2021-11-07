@@ -32,19 +32,24 @@ startBtn.onclick = startQuiz;
 // create an array of questions with multiple choices
 let possibleQuestionsArray = [
 	{
-		question: 'What is the capital of the US?',
-		answers: ['Chicago, IL', 'Nashville, TN', 'Seattle, WA', 'Washington, DC'],
-		correctAnswer: 'Washington, DC'
+		question: 'Which of the following does NOT belong?',
+		answers: ['<head>', '<div>', 'function()', '<body>'],
+		correctAnswer: 'function()'
 	},
 	{
-		question: 'What is the capital of the Canada?',
-		answers: ['Toronto', 'Montreal', 'Ottawa', 'Vancouver'],
-		correctAnswer: 'Ottawa'
+		question: 'In JavaScript, variables are set using..?',
+		answers: ['var', 'let', 'const', 'all the above'],
+		correctAnswer: 'all the above'
 	},
 	{
-		question: 'What is the capital of the Germany?',
-		answers: ['Berlin', 'Hamburg', 'Frankfurt', 'Munich'],
-		correctAnswer: 'Berlin'
+		question: 'What does HTML stand for?',
+		answers: ['Hyper Text Markup Language', 'Hamburger Turtles Mountain Lion', 'Higher Text Markup Level', 'HTML does not stand for anything'],
+		correctAnswer: 'Hyper Text Markup Language'
+	},
+	{
+		question: 'id attributes can be associated with multiple HTML elements.',
+		answers: ['True', 'False', 'It depends', 'True, but only on Friday'],
+		correctAnswer: 'False'
 	},
 ]
 
