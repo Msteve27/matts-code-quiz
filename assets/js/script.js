@@ -1,4 +1,4 @@
-// Create a start quiz function that hides the .welcome-container and show .question-container
+// define variables
 let timeEl = document.getElementById('time')
 let homepageContainerEl = document.querySelector('.homepage-container')
 let questionsContainerEl = document.querySelector('.questions-container')
@@ -16,7 +16,8 @@ let answercEl = document.getElementById('answerc')
 let answerdEl = document.getElementById('answerd')
 let finalScoreEl = document.getElementById('final-score')
 let submitScoreBtn = document.getElementById('submitScoreBtn')
-let initialsInput = document.getElementById('initialsInput')
+let initialsInputEl = document.getElementById('initialsInput')
+let highScoreEl = document.getElementById('highScore')
 
 let timerInterval = null;
 
@@ -29,7 +30,6 @@ function startQuiz() {
 
 startBtn.onclick = startQuiz;
 
-// create an array of questions with multiple choices
 let possibleQuestionsArray = [
 	{
 		question: 'Which of the following does NOT belong?',
@@ -71,9 +71,7 @@ function generateQuestion() {
 	answerdEl.onclick = incrementLiveQuestions
 }
 
-// Create a function that increments the liveQuestioni by 1 when an answer button is clicked
 function incrementLiveQuestions() {
-	console.log(this)
 	let answerBtnEL = this.innerText
 	confirmAnswer(answerBtnEL)
 	
@@ -104,12 +102,10 @@ function updateTime() {
 function confirmAnswer(answer) {
 	let answerStatusText = ''
 	if (answer == possibleQuestionsArray[liveQuestioni].correctAnswer) {
-		console.log('correct')
 		answerStatusText = 'Correct'
 		answerStatusContainerEl.classList.remove('hidden')
 		answerStatusEl.textContent = answerStatusText
 	} else {
-		console.log('wrong')
 		answerStatusText = 'Incorrect'
 		time = time - 10
 		answerStatusContainerEl.classList.remove('hidden')
@@ -120,42 +116,27 @@ function confirmAnswer(answer) {
 	}, 1000);
 }
 
+function handleScoreSubmit(ev) {
+	ev.preventDefault()
+	let inputValue = initialsInputEl.value
+	console.log(inputValue)
+	
+	if (!inputValue) {
+		alert('please enter your initials')
+		return
+	}
+	let initials = inputValue
+	let quizData = {
+		score: time,
+		initials: initials
+		}
+	
 
-
-
-let submitScore = function () {
-    console.log("save button clicked")
-
-    
-    let data = {
-	score: time,
-	initials: ''
-    }
-    // add data
-    localStorage.setItem("score", JSON.stringify(data))
-
-    // read data
-    let scoreData = localStorage.getItem('score')
-    console.log('scoreData: ', scoreData);
-
-    let parsedScoreData = JSON.parse(scoreData)
-    console.log('parsedScoreData: ', parsedScoreData);
-
-    console.log(parsedScoreData.initials + ' ' + parsedScoreData.score)
-
-    let myFinalScore = (parsedScoreData.initials + ' ' + parsedScoreData.score)
-    console.log(myFinalScore)
-
-    myFinalScore
-    
-    submitScoreBtn.onclick = submitScore();
-    
-
-
-
-
-
-
-
+	localStorage.setItem('score', JSON.stringify(quizData))
+						
+	let highScoreliEl = document.createElement('li')
+	highScoreliEl.innerText = inputValue + ' ' + time
+	highScoreEl.appendChild(highScoreliEl)
 }
+submitScoreBtn.addEventListener('click', handleScoreSubmit)   
 
